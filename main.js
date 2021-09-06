@@ -14,7 +14,7 @@ const client = new Client({
 });
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  registerCommands(); //this only needs to be done once. Change to global commands once they are working
+  //registerCommands(); //this only needs to be done once. Change to global commands once they are working
 });
 
 client.on('interactionCreate', async (interaction) => {

@@ -33,6 +33,11 @@ export const interactionListener = async (interaction, client) => {
           })
           .join(' ');
         interaction.reply(`Searching for ${italic(titled)}`);
+        joinVoiceChannel({
+          channelId: channel.id,
+          guildId: channel.guild.id,
+          adapterCreator: channel.guild.voiceAdapterCreator,
+        });
       }
   }
 };
