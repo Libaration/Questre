@@ -1,3 +1,3 @@
 export const testCommand = (message) => {
-  message.reply('worked');
+  message.channel.send('worked');
 };
