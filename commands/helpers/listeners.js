@@ -33,11 +33,22 @@ export const interactionListener = async (interaction, client) => {
           })
           .join(' ');
         interaction.reply(`Searching for ${italic(titled)}`);
-        joinVoiceChannel({
+        const connection = joinVoiceChannel({
           channelId: channel.id,
           guildId: channel.guild.id,
           adapterCreator: channel.guild.voiceAdapterCreator,
+          selfDeafen: false,
         });
+        const stream = ytdl('https://www.youtube.com/watch?v=V4Wq5YEjE-s', {
+          filter: 'audioonly',
+        });
+        const resource = createAudioResource(stream, {
+          inputType: StreamType.Arbitrary,
+        });
+        const player = createAudioPlayer();
+        player.play(resource);
+        connection.subscribe(player);
+        player.on(AudioPlayerStatus.Idle, () => connection.destroy());
       }
   }
 };
