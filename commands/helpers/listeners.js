@@ -15,8 +15,7 @@ import {
   createAudioResource,
   joinVoiceChannel,
 } from '@discordjs/voice';
-import { fetchSearchResults } from './api';
-import fetch from 'node-fetch';
+import { fetchSearchResults } from './api.js';
 export const interactionListener = async (interaction, client) => {
   if (!interaction.isCommand()) return; //if the interaction isn't a registered command do nothing
   const { commandName } = interaction; //ES6 Destructuring to grab commandName property from interaction

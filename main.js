@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import { Client, Intents } from 'discord.js';
-import registerCommands from './commands/helpers/registerCommands';
-import { interactionListener } from './commands/helpers/listeners';
+import registerCommands from './commands/helpers/registerCommands.js';
+import { interactionListener } from './commands/helpers/listeners.js';
 dotenv.config();
 const client = new Client({
   intents: [
