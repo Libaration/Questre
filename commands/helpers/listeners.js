@@ -40,17 +40,17 @@ export const interactionListener = async (interaction, client) => {
           adapterCreator: channel.guild.voiceAdapterCreator,
           selfDeafen: false,
         });
-        fetchSearchResults(song);
-        // const stream = ytdl('YOUTUBEURLWILLGOHERE', {
-        //   filter: 'audioonly',
-        // });
-        // const resource = createAudioResource(stream, {
-        //   inputType: StreamType.Arbitrary,
-        // });
-        // const player = createAudioPlayer();
-        // player.play(resource);
-        // connection.subscribe(player);
-        // player.on(AudioPlayerStatus.Idle, () => connection.destroy());
+        const searchResults = await fetchSearchResults(song);
+        const stream = ytdl(`${searchResults[0].id.videoId}`, {
+          filter: 'audioonly',
+        });
+        const resource = createAudioResource(stream, {
+          inputType: StreamType.Arbitrary,
+        });
+        const player = createAudioPlayer();
+        player.play(resource);
+        connection.subscribe(player);
+        player.on(AudioPlayerStatus.Idle, () => connection.destroy());
       }
   }
 };
