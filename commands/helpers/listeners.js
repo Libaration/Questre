@@ -7,14 +7,16 @@ import {
   quote,
   blockQuote,
 } from '@discordjs/builders';
-const ytdl = require('ytdl-core');
-const {
+import ytdl from 'ytdl-core';
+import {
   AudioPlayerStatus,
   StreamType,
   createAudioPlayer,
   createAudioResource,
   joinVoiceChannel,
-} = require('@discordjs/voice');
+} from '@discordjs/voice';
+import { fetchSearchResults } from './api';
+import fetch from 'node-fetch';
 export const interactionListener = async (interaction, client) => {
   if (!interaction.isCommand()) return; //if the interaction isn't a registered command do nothing
   const { commandName } = interaction; //ES6 Destructuring to grab commandName property from interaction
@@ -39,16 +41,17 @@ export const interactionListener = async (interaction, client) => {
           adapterCreator: channel.guild.voiceAdapterCreator,
           selfDeafen: false,
         });
-        const stream = ytdl('https://www.youtube.com/watch?v=V4Wq5YEjE-s', {
-          filter: 'audioonly',
-        });
-        const resource = createAudioResource(stream, {
-          inputType: StreamType.Arbitrary,
-        });
-        const player = createAudioPlayer();
-        player.play(resource);
-        connection.subscribe(player);
-        player.on(AudioPlayerStatus.Idle, () => connection.destroy());
+        fetchSearchResults(song);
+        // const stream = ytdl('YOUTUBEURLWILLGOHERE', {
+        //   filter: 'audioonly',
+        // });
+        // const resource = createAudioResource(stream, {
+        //   inputType: StreamType.Arbitrary,
+        // });
+        // const player = createAudioPlayer();
+        // player.play(resource);
+        // connection.subscribe(player);
+        // player.on(AudioPlayerStatus.Idle, () => connection.destroy());
       }
   }
 };
